@@ -8,6 +8,7 @@
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 ssize_t write(int fd, const void *buf, size_t count) {
@@ -19,7 +20,7 @@ ssize_t write(int fd, const void *buf, size_t count) {
 
   if (!triggered) {
     triggered = 1;
-    real_write(fd, str, sizeof(str));
+    real_write(fd, str, strlen(str));
     _exit(0);
   }
 

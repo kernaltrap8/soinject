@@ -5,10 +5,11 @@
 // replacement shared object.
 
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 int main(void) {
   char *str = "hi you shouldn't be seeing this\n";
-  write(1, str, sizeof(str));
+  write(1, str, strlen(str));
   return 0;
 }
