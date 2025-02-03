@@ -14,6 +14,7 @@
 ssize_t write(int fd, const void *buf, size_t count) {
   static ssize_t (*real_write)(int, const void *, size_t) = NULL;
   int triggered = 0;
+  int exit = 0;
   char *str = "Hooked!\n";
   if (!real_write)
     real_write = dlsym(RTLD_NEXT, "write");
@@ -21,7 +22,9 @@ ssize_t write(int fd, const void *buf, size_t count) {
   if (!triggered) {
     triggered = 1;
     real_write(fd, str, strlen(str));
-    _exit(0);
+    fprintf(stderr, "Intercepted write: %zu bytes\n", count);
+    if (exit)
+      _exit(0);
   }
 
   return real_write(fd, buf, count);
