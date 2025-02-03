@@ -9,7 +9,7 @@
 #include <unistd.h>
 
 int main(void) {
-  char *str = "hi you shouldn't be seeing this\n";
+  char *str = "hi from target\n";
   write(1, str, strlen(str));
   return 0;
 }
